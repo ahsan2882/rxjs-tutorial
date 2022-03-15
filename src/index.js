@@ -1,6 +1,8 @@
-import { timer } from "rxjs";
+import { fromEvent } from "rxjs";
 
-const observable = timer(0,1000)
+const observable = fromEvent(
+    document, 'click'
+)
 console.log('before')
 const subscription = observable.subscribe(
     console.log()

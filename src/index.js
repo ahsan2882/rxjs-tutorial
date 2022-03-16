@@ -1,8 +1,9 @@
-import { of } from "rxjs";
-import { map, pluck, filter, reduce } from 'rxjs/operators'
+import { interval } from "rxjs";
+import { reduce, take, scan } from 'rxjs/operators'
 
-const observable = of(1, 2, 3, 4, 5).pipe(
-    reduce((acc, value) => acc + value, 0)
+const observable = interval(500).pipe(
+    take(5),
+    scan((acc, value) => acc + value, 0)
 )
 console.log('before')
 const subscription = observable.subscribe({

@@ -1,19 +1,18 @@
-import { interval } from "rxjs";
-import { reduce, take, scan, tap } from 'rxjs/operators'
-
-const observable = interval(500).pipe(
-    take(5),
-    tap({
-        next(val) {
-            console.log(val)
-        }
-    }),
-    reduce((acc, value) => acc + value, 0)
+import { fromEvent } from "rxjs";
+import { map } from 'rxjs/operators'
+import { ajax } from "rxjs/ajax";
+const button = document.querySelector('#btn')
+const observable = fromEvent(
+    button, 'click'
+).pipe(
+    map(() => {
+        return ajax.getJSON('https://jsonplaceholder.typicode.com/todos/1')
+    })
 )
 console.log('before')
 const subscription = observable.subscribe({
     next(value) {
-        console.log(value)
+        value.subscribe(console.log)
     },
     complete() {
         console.log('completed')

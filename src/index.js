@@ -1,8 +1,18 @@
-import { Observable } from "rxjs";
+
+const { Observable } = require("rxjs");
 
 const observable = new Observable((subscriber) => {
-    subscriber.next('test')
+    const id = setInterval(() => {
+        subscriber.next('test')
+        console.log('leak')
+    }, 1000)
+
     subscriber.complete()
+
+    return () => {
+        clearInterval(id);
+    }
+
 });
 console.log('before')
 observable.subscribe({
@@ -10,7 +20,8 @@ observable.subscribe({
         console.log(value)
     },
     complete: () => {
-        console.log('Complete')
+        console.log('Completed')
+
     },
     error: (err) => {
         console.error(err)

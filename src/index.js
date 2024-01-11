@@ -1,5 +1,5 @@
 
-const { Observable } = require("rxjs");
+const {Observable} = require("rxjs");
 
 const observable = new Observable((subscriber) => {
     const id = setInterval(() => {
@@ -7,24 +7,19 @@ const observable = new Observable((subscriber) => {
         console.log('leak')
     }, 1000)
 
-    subscriber.complete()
+        subscriber.complete()
 
     return () => {
-        clearInterval(id);
+  clearInterval(id);
     }
 
 });
-console.log('before')
-observable.subscribe({
-    next: (value) => {
-        console.log(value)
-    },
-    complete: () => {
-        console.log('Completed')
+    console.log('before')
+    observable.subscribe({
+      next : (value) => {console.log(value)},
+      complete : () => {console.log('Completed')
 
-    },
-    error: (err) => {
-        console.error(err)
-    }
-})
-console.log('after')
+      },
+      error : (err) => { console.error(err) }
+    })
+    console.log('after')

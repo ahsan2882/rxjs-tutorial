@@ -1,3 +1,4 @@
+
 const { Observable } = require("rxjs");
 
 const observable = new Observable((subscriber) => {
@@ -11,6 +12,7 @@ const observable = new Observable((subscriber) => {
     return () => {
         clearInterval(id);
     }
+
 });
 console.log('before')
 observable.subscribe({
@@ -19,6 +21,7 @@ observable.subscribe({
     },
     complete: () => {
         console.log('Completed')
+
     },
     error: (err) => {
         console.error(err)
